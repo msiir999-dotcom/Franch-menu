@@ -393,4 +393,92 @@
         function updateQty(id, change) {
             if (!cart[id]) cart[id] = 0; cart[id] += change;
             if (cart[id] <= 0) delete cart[id];
-            const qtyLabel = do
+            const qtyLabel = document.getElementById(`qty-${id}`);
+            if (qtyLabel) qtyLabel.innerText = cart[id] || 0;
+            updateCartTotal();
+        }
+
+        function updateCartTotal() {
+            let total = 0;
+            for (let id in cart) { if(allItemsFlattened[id]) total += cart[id] * allItemsFlattened[id].price; }
+            document.getElementById('cart-total').innerText = total.toLocaleString() + " د.ع";
+            document.getElementById('modal-total').innerText = total.toLocaleString();
+        }
+
+        function openCaptainPanel() {
+            if (!isCaptainMode) {
+                let checkPass = prompt("الرجاء إدخال رمز الكابتن الماستر للوصول:");
+                if (checkPass === CAPTAIN_PASSWORD) { isCaptainMode = true; alert("🔓 تم تفعيل وضع كابتن الصالة بنجاح!"); renderMenu(); } else { alert("❌ الرمز خاطئ!"); return; }
+            }
+            document.getElementById('captain-modal').style.display = 'flex';
+        }
+
+        function closeCaptainPanel() { document.getElementById('captain-modal').style.display = 'none'; resetCaptainForm(); }
+        function resetCaptainForm() { document.getElementById('edit-item-id').value = ""; document.getElementById('item-name').value = ""; document.getElementById('item-price').value = ""; document.getElementById('item-image-url').value = ""; }
+
+        function setupEditItem(category, id) {
+            let item = menuData[category].find(p => p.id === id);
+            if(item) {
+                document.getElementById('edit-item-id').value = item.id; document.getElementById('item-category').value = category;
+                document.getElementById('item-name').value = item.name; document.getElementById('item-price').value = item.price;
+                document.getElementById('item-image-url').value = item.img ? item.img : "";
+                document.getElementById('captain-modal').style.display = 'flex';
+            }
+        }
+
+        function saveCaptainChanges() {
+            const id = document.getElementById('edit-item-id').value; const category = document.getElementById('item-category').value;
+            const name = document.getElementById('item-name').value; const price = parseInt(document.getElementById('item-price').value);
+            const imgUrl = document.getElementById('item-image-url').value;
+            if(!name || !price) { alert("يرجى ملأ جميع الحقول المطلوبة!"); return; }
+            if(id) {
+                for (let cat in menuData) { menuData[cat] = menuData[cat].filter(p => p.id != id); }
+                menuData[category].push({ id: parseInt(id), name, price, img: imgUrl });
+            } else { menuData[category].push({ id: Date.now(), name, price, img: imgUrl }); }
+            localStorage.setItem('royal_menu_data', JSON.stringify(menuData));
+            alert("✅ تم الحفظ والتحديث بنجاح!"); closeCaptainPanel(); renderMenu(); updateCartTotal();
+        }
+
+        function deleteItem(category, id) {
+            if(confirm("هل أنت متأكد من حذف هذا المنتج نهائياً؟")) { menuData[category] = menuData[category].filter(p => p.id !== id); if(cart[id]) delete cart[id]; localStorage.setItem('royal_menu_data', JSON.stringify(menuData)); renderMenu(); updateCartTotal(); }
+        }
+
+        function openCheckoutModal() {
+            let total = 0; for (let id in cart) total += cart[id];
+            if (total === 0) { alert("لم تقم باختيار أي وجبة بعد!"); return; }
+            
+            const inputField = document.getElementById('table-or-address');
+            if (orderType === 'صالة') {
+                inputField.placeholder = "اكتب رقم طاولتك هنا (مثال: طاولة 4)";
+            } else {
+                inputField.placeholder = "اكتب عنوان التوصيل بالتفصيل + رقم الهاتف";
+            }
+            document.getElementById('checkout-modal').style.display = 'flex';
+        }
+        function closeCheckoutModal() { document.getElementById('checkout-modal').style.display = 'none'; }
+
+        function sendOrderToWhatsApp() {
+            const infoDetail = document.getElementById('table-or-address').value;
+            if (!infoDetail) { 
+                alert(orderType === 'صالة' ? "الرجاء كتابة رقم الطاولة!" : "الرجاء كتابة عنوان التوصيل ورقم الهاتف!"); 
+                return; 
+            }
+            
+            let itemsDetails = [], total = 0;
+            for (let id in cart) { if(allItemsFlattened[id]) { itemsDetails.push(`• ${allItemsFlattened[id].name} (عدد ${cart[id]})`); total += cart[id] * allItemsFlattened[id].price; } }
+            
+            let textMessage = `⚜️ *طلب جديد من المنيو الملكي النيلي* ⚜️\n\n`;
+            textMessage += `📌 *نوع الطلب:* ${orderType === 'صالة' ? 'داخل الصالة 🍽️' : 'توصيل / سفري 🚗'}\n`;
+            textMessage += `📍 *تفاصيل الموقع:* ${infoDetail}\n\n`;
+            textMessage += `📝 *الطلبات:*\n${itemsDetails.join('\n')}\n\n`;
+            textMessage += `💰 *الحساب الكلي:* ${total.toLocaleString()} د.ع\n`;
+            textMessage += `⏰ *الوقت:* ${new Date().toLocaleTimeString('ar-EG', {hour: '2-digit', minute:'2-digit'})}`;
+            
+            closeCheckoutModal(); 
+            window.location.href = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(textMessage)}`;
+        }
+
+        renderMenu();
+    </script>
+</body>
+</html>
