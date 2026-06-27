@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنيو الملكي الفرنسي</title>
+    <style>
+        :root {
+            --royal-green: #0A2F1D;
+            --royal-gold: #D4AF37;
+            --light-gold: #F3E5AB;
+            --dark-text: #1C1C1C;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Times New Roman', 'Cairo', serif;
+            background-color: var(--royal-green);
+            color: var(--white);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* الشاشة الترحيبية */
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--royal-gold);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        h1, h2, h3 {
+            color: var(--royal-gold);
+            font-family: 'Georgia', serif;
+            letter-spacing: 1px;
+        }
+
+        .btn-royal {
+            background-color: var(--royal-gold);
+            color: var(--royal-green);
+            border: 2px solid var(--royal-gold);
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            min-width: 150px;
+        }
+
+        .btn-royal:hover {
+            background-color: transparent;
+            color: var(--royal-gold);
+        }
+
+        /* المنيو */
+        .hidden { display: none !important; }
+
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .category-btn {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--royal-gold);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .category-btn.active {
+            background: var(--royal-gold);
+            color: var(--royal-green);
+            font-weight: bold;
+        }
+
+        .menu-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px dashed var(--royal-gold);
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 5px;
+        }
+
+        .item-info h4 {
+            margin: 0 0 5px 0;
+            color: var(--light-gold);
+            font-size: 18px;
+        }
+
+        .item-info p {
+            margin: 0;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .item-price {
+            color: var(--royal-gold);
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* السلة وإتمام الطلب */
+        .cart-bar {
+            background: var(--royal-gold);
+            color: var(--royal-green);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* لوحة كابتن الصالة */
+        .captain-zone {
+            margin-top: 60px;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .btn-captain {
+            background: transparent;
+            color: #aaa;
+            border: 1px dashed #aaa;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div id="welcome-screen" class="welcome-card">
+            <div style="font-size: 40px; margin-bottom: 10px;">⚜️</div>
+            <h1>Le Palais Royal</h1>
+            <p style="color: var(--light-gold); font-style: italic;">أهلاً بكم في القصر الملكي</p>
+            <hr style="border-color: var(--royal-gold); width: 50%; margin: 20px auto;">
+            <p>يرجى اختيار نوع الطلب لبدء تجربتكم الفريدة:</p>
+            <button class="btn-royal" onclick="setOrderType('صالة')">داخل الصالة</button>
+            <button class="btn-royal" onclick="setOrderType('توصيل')">طلب سفري / توصيل</button>
+        </div>
+
+        <div id="menu-screen" class="hidden">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2 style="margin-bottom: 5px;">⚜️ قائمة الطعام الملكية ⚜️</h2>
+                <p id="order-type-badge" style="color: var(--light-gold); margin: 0;"></p>
+            </div>
+
+            <div class="category-nav">
+                <button class="category-btn active" onclick="filterCategory('all')">الكل</button>
+                <button class="category-btn" onclick="filterCategory('main')">الأطباق الرئيسية</button>
+                <button class="category-btn" onclick="filterCategory('appetizers')">المقبلات</button>
+                <button class="category-btn" onclick="filterCategory('desserts')">الحلويات</button>
+            </div>
+
+            <div id="menu-items">
+                <div class="menu-item" data-category="main">
+                    <div class="item-info">
+                        <h4>ستيك فيليه بصلصة الفطر الفرنسية</h4>
+                        <p>لحم بقري فاخر مع كريمة الفطر الطازجة</p>
+                    </div>
+                    <div>
+                        <span class="item-price">25,000 د.ع</span>
+                        <button class="btn-royal" style="padding: 5px 10px; min-width: auto; margin: 0 10px 0 0;" onclick="addToCart('ستيك فيليه بصلصة الفطر', 25000)">+</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="appetizers">
+                    <div class="item-info">
+                        <h4>شوربة البصل الفرنسية الكلاسيكية</h4>
+                        <p>مقدمة مع خبز الباجيت والجبن الذائب</p>
+                    </div>
+                    <div>
+                        <span class="item-price">7,000 د.ع</span>
+                        <button class="btn-royal" style="padding: 5px 10px; min-width: auto; margin: 0 10px 0 0;" onclick="addToCart('شوربة البصل الفرنسية', 7000)">+</button>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="desserts">
+                    <div class="item-info">
+                        <h4>سوفليه الشوكولاتة الملكي</h4>
+                        <p>يُقدم ساخناً مع الآيس كريم الفانيلا</p>
+                    </div>
+                    <div>
+                        <span class="item-price">9,000 د.ع</span>
+                        <button class="btn-royal" style="padding: 5px 10px; min-width: auto; margin: 0 10px 0 0;" onclick="addToCart('سوفليه الشوكولاتة', 9000)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="captain-zone">
+            <button class="btn-captain" onclick="loginCaptain()">⚙️ لوحة كابتن الصالة</button>
+        </div>
+
+        <div id="cart-bar" class="cart-bar hidden" onclick="checkout()">
+            🛒 إرسال الطلب عبر الواتساب (<span id="cart-count">0</span> مواد)
+        </div>
+
+    </div>
+
+    <script>
+        let orderType = "";
+        let cart = [];
+        const whatsappNumber = "9647713561219"; // الرقم بصيغته الدولية بدون أصفار بالبداية
+
+        function setOrderType(type) {
+            orderType = type;
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('menu-screen').classList.remove('hidden');
+            document.getElementById('order-type-badge').innerText = `نوع الطلب: ${type === 'صالة' ? 'داخل الصالة' : 'توصيل / سفري'}`;
+        }
+
+        function filterCategory(category) {
+            // تحديث تصميم أزرار الأقسام
+            let buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // تصفية المواد
+            let items = document.querySelectorAll('.menu-item');
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function addToCart(itemName, price) {
+            cart.push({ name: itemName, price: price });
+            document.getElementById('cart-bar').classList.remove('hidden');
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        function checkout() {
+            if (cart.length === 0) return alert("السلة فارغة حالياً!");
+
+            let locationDetail = "";
+            if (orderType === 'صالة') {
+                locationDetail = prompt("الرجاء إدخال رقم الطاولة الحالي الخاص بك:");
+                if (!locationDetail) return alert("يجب إدخال رقم الطاولة لإتمام الطلب!");
+            } else {
+                locationDetail = prompt("الرجاء إدخال عنوان التوصيل بالتفصيل مع رقم الهاتف الآخر إن وجد:");
+                if (!locationDetail) return alert("يجب إدخال تفاصيل العنوان للتوصيل!");
+            }
+
+            // بناء نص الرسالة الموجهة للواتساب
+            let itemsList = cart.map(item => `- ${item.name} (${item.price.toLocaleString()} د.ع)`).join('%0A');
+            let total = cart.reduce((sum, item) => sum + item.price, 0);
+            
+            let message = `⚜️ *طلب جديد من المنيو الملكي* ⚜️%0A%0A`;
+            message += `*نوع الطلب:* ${orderType === 'صالة' ? 'داخل الصالة 🍽️' : 'توصيل 🚗'}%0A`;
+            message += `*الموقع/الطاولة:* ${locationDetail}%0A%0A`;
+            message += `*الطلبات:*%0A${itemsList}%0A%0A`;
+            message += `*الإجمالي:* ${total.toLocaleString()} د.ع%0A%0A`;
+            message += `شكرًا لاختياركم لنا!`;
+
+            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+        }
+
+        function loginCaptain() {
+            let password = prompt("الرجاء إدخال كلمة سر كابتن الصالة الماستر:");
+            if (password === "2026") { // كلمة السر الحالية
+                let action = confirm("تم تسجيل الدخول بنجاح! هل تود إضافة/حذف أكلة من القائمة الحالية؟");
+                if (action) {
+                    alert("الآن يمكنك ربط الواجهة بقاعدة بيانات سحابية لحفظ التعديلات ديناميكياً!");
+                }
+            } else {
+                alert("❌ كلمة السر غير صحيحة، عذراً لا تملك الصلاحية.");
+            }
+        }
+    </script>
+</body>
+  </html>
+  
