@@ -3,25 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المنيو الملكي الفرنسي</title>
+    <title>المنيو الملكي الفرنسي النيلي</title>
+    <!-- استدعاء خطوط عربية فخمة وكلاسيكية من جوجل -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --royal-green: #0A2F1D;
+            --french-navy: #0B1D3A; /* اللون النيلي الفرنسي الفخم */
             --royal-gold: #D4AF37;
             --light-gold: #F3E5AB;
             --dark-text: #1C1C1C;
             --white: #FFFFFF;
-            --card-bg: rgba(5, 22, 14, 0.85); /* خلفية داكنة شبه شفافة لسهولة القراءة فوق الصور */
+            --card-bg: rgba(11, 29, 58, 0.88); /* خلفية نيلية شبه شفافة للكروت */
             --danger: #dc3545;
             --info: #17a2b8;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Times New Roman', 'Cairo', serif; }
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Amiri', 'Cairo', serif; /* تطبيق الخط العربي الفخم */
+        }
 
         body {
-            background-color: var(--royal-green);
-            /* صورة خلفية عامة للموقع بطابع الشوارع الفرنسية الكلاسيكية الدادئة */
-            background-image: linear-gradient(rgba(10, 47, 29, 0.85), rgba(5, 22, 14, 0.95)), url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1200&auto=format&fit=crop');
+            background-color: var(--french-navy);
+            /* خلفية عامة للموقع بطابع فرنسي كلاسيكي ناعم وعالي التباين */
+            background-image: linear-gradient(rgba(11, 29, 58, 0.88), rgba(5, 14, 28, 0.96)), url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1200&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -35,14 +45,14 @@
             padding: 20px;
         }
 
-        /* الشاشة الترحيبية المحسنة بصورة واقعية لمناطق فرنسية ملكية */
+        /* الشاشة الترحيبية النيلية الملكية */
         .welcome-card {
-            background-image: linear-gradient(rgba(10, 47, 29, 0.75), rgba(5, 22, 14, 0.85)), url('https://images.unsplash.com/photo-1549144511-f099e773c147?q=80&w=1200&auto=format&fit=crop');
+            background-image: linear-gradient(rgba(11, 29, 58, 0.75), rgba(5, 14, 28, 0.9)), url('https://images.unsplash.com/photo-1549144511-f099e773c147?q=80&w=1200&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             border: 2px solid var(--royal-gold);
             border-radius: 15px;
-            padding: 40px 20px;
+            padding: 45px 20px;
             margin-top: 40px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.7);
             text-align: center;
@@ -50,20 +60,22 @@
 
         h1, h2, h3 {
             color: var(--royal-gold);
-            font-family: 'Georgia', serif;
             letter-spacing: 1px;
             text-align: center;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-weight: 700;
         }
+        
+        h1 { font-size: 32px; }
 
         .btn-royal {
             background-color: var(--royal-gold);
-            color: var(--royal-green);
+            color: var(--french-navy);
             border: 2px solid var(--royal-gold);
-            padding: 14px 25px;
-            font-size: 16px;
+            padding: 12px 25px;
+            font-size: 18px;
             font-weight: bold;
-            border-radius: 30px; /* جعل الأزرار دائرية وأكثر عصرية */
+            border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
             margin: 10px;
@@ -87,8 +99,8 @@
             padding: 15px 0;
             position: sticky;
             top: 0;
-            background: rgba(10, 47, 29, 0.95);
-            backdrop-filter: blur(5px);
+            background: rgba(11, 29, 58, 0.96);
+            backdrop-filter: blur(8px);
             z-index: 100;
             border-bottom: 1px solid rgba(212, 175, 55, 0.3);
             scrollbar-width: none;
@@ -100,40 +112,64 @@
             background: rgba(0, 0, 0, 0.4);
             color: var(--white);
             border: 1px solid var(--royal-gold);
-            padding: 10px 20px;
+            padding: 8px 18px;
             border-radius: 20px;
             cursor: pointer;
             white-space: nowrap;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: bold;
         }
 
         .category-btn.active {
             background: var(--royal-gold);
-            color: var(--royal-green);
+            color: var(--french-navy);
         }
 
         .menu-section { display: none; }
         .menu-section.active-section { display: block; animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .section-title { font-size: 20px; color: var(--royal-gold); margin: 25px 0 15px 0; text-align: right; border-right: 3px solid var(--royal-gold); padding-right: 8px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
+        .section-title { font-size: 22px; color: var(--royal-gold); margin: 25px 0 15px 0; text-align: right; border-right: 3px solid var(--royal-gold); padding-right: 8px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
 
+        /* تعديل تصميم المنيو ليحتوي على صور بجانب الأطعمة */
         .menu-item {
             background: var(--card-bg);
             backdrop-filter: blur(5px);
             border-radius: 12px;
-            padding: 18px;
+            padding: 15px;
             margin-bottom: 15px;
             border: 1px solid rgba(212, 175, 55, 0.2);
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .item-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .item-title { font-size: 18px; font-weight: bold; color: var(--light-gold); }
+        .item-main-content {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* تنسيق صورة الوجبة */
+        .item-img {
+            width: 85px;
+            height: 85px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid var(--royal-gold);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .item-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .item-title { font-size: 19px; font-weight: bold; color: var(--light-gold); line-height: 1.3; }
         .item-price { color: var(--royal-gold); font-weight: bold; font-size: 16px; margin-top: 4px; }
         
         .quantity-control {
@@ -146,12 +182,12 @@
             border: 1px solid var(--royal-gold);
         }
         .q-btn { background: none; border: none; color: var(--royal-gold); font-size: 20px; font-weight: bold; cursor: pointer; width: 24px; }
-        .q-num { font-size: 15px; font-weight: bold; min-width: 15px; text-align: center; color: var(--white); }
+        .q-num { font-size: 16px; font-weight: bold; min-width: 15px; text-align: center; color: var(--white); }
 
         /* أزرار التحكم للكابتن */
         .captain-actions { display: flex; gap: 8px; border-top: 1px solid rgba(212, 175, 55, 0.3); padding-top: 10px; width: 100%; }
-        .btn-captain-edit { background: var(--info); color: white; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; }
-        .btn-captain-del { background: var(--danger); color: white; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; }
+        .btn-captain-edit { background: var(--info); color: white; border: none; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; }
+        .btn-captain-del { background: var(--danger); color: white; border: none; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; }
 
         /* البار السفلي للسلة */
         .cart-bar {
@@ -159,7 +195,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(5, 22, 14, 0.95);
+            background: rgba(5, 14, 28, 0.96);
             backdrop-filter: blur(10px);
             border-top: 2px solid var(--royal-gold);
             padding: 15px 20px;
@@ -171,62 +207,62 @@
             z-index: 99;
             box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
         }
-        .btn-order { background: #28a745; color: #fff; border: none; padding: 12px 22px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 14px; box-shadow: 0 4px 10px rgba(40,167,69,0.4); }
+        .btn-order { background: #28a745; color: #fff; border: none; padding: 12px 22px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 15px; box-shadow: 0 4px 10px rgba(40,167,69,0.4); }
 
         /* النوافذ المنبثقة (Modals) */
         .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
-        .modal-content { background: #072215; border: 2px solid var(--royal-gold); border-radius: 15px; padding: 25px; width: 100%; max-width: 400px; text-align: center; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+        .modal-content { background: #0b1d3a; border: 2px solid var(--royal-gold); border-radius: 15px; padding: 25px; width: 100%; max-width: 400px; text-align: center; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
         
         .input-table, .captain-input, .captain-select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--royal-gold); background: #000; color: #fff; text-align: center; font-size: 16px; margin: 10px 0; font-weight: bold; outline: none; }
         .captain-select { text-align: right; direction: rtl; }
-        .btn-confirm { background: var(--royal-gold); color: var(--royal-green); border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; box-shadow: 0 4px 12px rgba(212,175,55,0.3); }
-        .close-modal { color: #ccc; font-size: 13px; cursor: pointer; margin-top: 15px; display: inline-block; text-decoration: underline; }
+        .btn-confirm { background: var(--royal-gold); color: var(--french-navy); border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; box-shadow: 0 4px 12px rgba(212,175,55,0.3); }
+        .close-modal { color: #ccc; font-size: 14px; cursor: pointer; margin-top: 15px; display: inline-block; text-decoration: underline; }
         
         .admin-trigger { text-align: center; margin: 30px 0; }
-        .admin-link { color: var(--light-gold); font-size: 13px; text-decoration: underline; cursor: pointer; opacity: 0.7; }
+        .admin-link { color: var(--light-gold); font-size: 14px; text-decoration: underline; cursor: pointer; opacity: 0.7; }
         .admin-link:hover { opacity: 1; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- الشاشة الترحيبية مع خلفية واقعية لبرج إيفل بفرنسا وإضاءة ملكية دافئة -->
+        <!-- الشاشة الترحيبية النيلية الفخمة بإطلالة على مناطق فرنسية ساحرة -->
         <div id="welcome-screen" class="welcome-card">
             <div style="font-size: 40px; margin-bottom: 10px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));">⚜️</div>
             <h1>Le Palais Royal</h1>
-            <p style="color: var(--light-gold); font-style: italic; margin-top: 5px; text-shadow: 1px 1px 3px rgba(0,0,0,0.9);">أهلاً بكم في القصر الملكي</p>
+            <p style="color: var(--light-gold); font-style: italic; margin-top: 5px; text-shadow: 1px 1px 3px rgba(0,0,0,0.9);">أهلاً بكم في القصر الملكي الفرنسي</p>
             <hr style="border-color: var(--royal-gold); width: 50%; margin: 20px auto; box-shadow: 0 1px 2px rgba(0,0,0,0.5);">
-            <p style="margin-bottom: 25px; text-shadow: 1px 1px 3px rgba(0,0,0,0.9); font-weight: bold;">يرجى تحديد نوع الطلب لبدء تجربتكم الفخمة:</p>
+            <p style="margin-bottom: 25px; text-shadow: 1px 1px 3px rgba(0,0,0,0.9); font-weight: bold; font-size: 18px;">يرجى تحديد نوع الطلب لبدء تجربتكم الفخمة:</p>
             <button class="btn-royal" onclick="setOrderType('صالة')">داخل الصالة</button>
             <button class="btn-royal" onclick="setOrderType('توصيل')">توصيل / سفري</button>
         </div>
 
-        <!-- التطبيق الرئيسي (يظهر بخلفية شوارع باريس الشفافة بعد الاختيار) -->
+        <!-- التطبيق الرئيسي بالخلفية النيلية العميقة -->
         <div id="main-app" class="hidden">
             <div style="text-align: center; margin-bottom: 15px;">
-                <h2 id="order-type-badge" style="font-size: 15px; color: var(--royal-green); background: var(--royal-gold); padding: 6px 15px; border-radius: 20px; display: inline-block; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);"></h2>
+                <h2 id="order-type-badge" style="font-size: 16px; color: var(--french-navy); background: var(--royal-gold); padding: 6px 15px; border-radius: 20px; display: inline-block; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);"></h2>
             </div>
 
-            <!-- التنقل بين الأقسام -->
+            <!-- أزرار التنقل الفخمة بين الأقسام -->
             <div class="categories-nav">
                 <button class="category-btn active" onclick="switchPage('main-dishes', this)">🍽️ الرئيسية</button>
                 <button class="category-btn" onclick="switchPage('appetizers', this)">🥗 المقبلات</button>
                 <button class="category-btn" onclick="switchPage('desserts', this)">🍰 الحلويات</button>
             </div>
 
-            <!-- أقسام المنتجات -->
+            <!-- عرض المنتجات بداخل المنيو وبجانبها الصور -->
             <div class="menu-container">
                 <div id="main-dishes" class="menu-section active-section"><h2 class="section-title">الأطباق الرئيسية الفاخرة</h2><div id="main-dishes-items"></div></div>
                 <div id="appetizers" class="menu-section"><h2 class="section-title">المقبلات والشوربات الفرنسية</h2><div id="appetizers-items"></div></div>
                 <div id="desserts" class="menu-section"><h2 class="section-title">الحلويات الملكية والتحلية</h2><div id="desserts-items"></div></div>
             </div>
 
-            <!-- رابط لوحة التحكم -->
+            <!-- رابط لوحة التحكم بنظام الكابتن الجاهز -->
             <div class="admin-trigger">
                 <span class="admin-link" onclick="openCaptainPanel()">⚙️ لوحة تحكم الكابتن (إضافة وتعديل الأسعار والمنتجات)</span>
             </div>
 
-            <!-- بار السلة -->
+            <!-- بار السلة والحساب الثابت سفلياً -->
             <div class="cart-bar">
                 <div>
                     <span style="font-size: 13px; color: #ccc;">إجمالي الحساب:</span>
@@ -237,7 +273,7 @@
         </div>
     </div>
 
-    <!-- مودال تأكيد الطلب -->
+    <!-- مودال تأكيد طلبات الزبون -->
     <div id="checkout-modal" class="modal">
         <div class="modal-content">
             <h3>تأكيد الطلب الملكي 🧾</h3>
@@ -248,7 +284,7 @@
         </div>
     </div>
 
-    <!-- مودال لوحة الكابتن -->
+    <!-- لوحة الكابتن الماستر لإضافة وتعديل الأكلات والصور -->
     <div id="captain-modal" class="modal">
         <div class="modal-content">
             <h3 style="color: var(--royal-gold); margin-bottom: 10px;">إدارة قوائم الطعام ⚙️</h3>
@@ -261,6 +297,7 @@
             </select>
             <input type="text" id="item-name" class="captain-input" placeholder="اسم المنتج الجديد أو الحالي">
             <input type="number" id="item-price" class="captain-input" placeholder="السعر بالدينار العراقي (مثال: 15000)">
+            <input type="text" id="item-image-url" class="captain-input" placeholder="رابط صورة الوجبة (إختياري)">
             <button class="btn-confirm" onclick="saveCaptainChanges()">حفظ وتحديث الصنف ✅</button>
             <span class="close-modal" onclick="closeCaptainPanel()">إغلاق التعديل</span>
         </div>
@@ -269,18 +306,19 @@
     <script>
         const WHATSAPP_NUMBER = "9647713561219", CAPTAIN_PASSWORD = "2026"; 
 
+        // تزويد الوجبات الافتراضية بروابط صور واقعية ذات دقة فخمة لتظهر بجانب الأطعمة
         const defaultMenuData = {
             "main-dishes": [
-                { id: 1, name: "ستيك فيليه بصلصة الفطر الفرنسية", price: 25000 },
-                { id: 2, name: "دجاج غوردون بلو الملكي الفاخر", price: 18000 }
+                { id: 1, name: "ستيك فيليه بصلصة الفطر الفرنسية", price: 25000, img: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=300&auto=format&fit=crop" },
+                { id: 2, name: "دجاج غوردون بلو الملكي الفاخر", price: 18000, img: "https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?q=80&w=300&auto=format&fit=crop" }
             ],
             appetizers: [
-                { id: 3, name: "شوربة البصل الفرنسية بالجبن الذائب", price: 7000 },
-                { id: 4, name: "سلطة سيزر بالدجاج المقرمش", price: 6500 }
+                { id: 3, name: "شوربة البصل الفرنسية بالجبن", price: 7000, img: "https://images.unsplash.com/photo-1620418029653-5fa37ec40ffc?q=80&w=300&auto=format&fit=crop" },
+                { id: 4, name: "سلطة سيزر بالدجاج المقرمش", price: 6500, img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?q=80&w=300&auto=format&fit=crop" }
             ],
             desserts: [
-                { id: 5, name: "سوفليه الشوكولاتة الساخن مع الآيس كريم", price: 9000 },
-                { id: 6, name: "بروفترول فرنسي كلاسيكي مغطى بالشوكولاتة", price: 8000 }
+                { id: 5, name: "سوفليه الشوكولاتة الساخن الملكي", price: 9000, img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=300&auto=format&fit=crop" },
+                { id: 6, name: "بروفترول فرنسي بالشوكولاتة", price: 8000, img: "https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=300&auto=format&fit=crop" }
             ]
         };
 
@@ -306,6 +344,7 @@
             document.getElementById('order-type-badge').innerText = `نوع الطلب: ${type === 'صالة' ? 'طاولة صالة 🍽️' : 'توصيل / سفري 🚗'}`;
         }
 
+        // دالة بناء المنيو المحدثة بالكامل لتعرض الصورة بجانب عناصر الوجبة بدقة فخمة
         function renderMenu() {
             allItemsFlattened = {}; 
             for (let category in menuData) {
@@ -315,11 +354,19 @@
                 if (menuData[category] && menuData[category].length > 0) {
                     menuData[category].forEach(item => {
                         allItemsFlattened[item.id] = item; 
+                        
+                        // تعيين صورة افتراضية فخمة في حال عدم إدخال صورة من قبل الكابتن
+                        let itemImgSrc = item.img ? item.img : "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=300&auto=format&fit=crop";
+                        
                         const div = document.createElement('div');
                         div.className = "menu-item";
                         div.innerHTML = `
-                            <div class="item-row">
-                                <div><div class="item-title">${item.name}</div><div class="item-price">${item.price.toLocaleString()} د.ع</div></div>
+                            <div class="item-main-content">
+                                <img src="${itemImgSrc}" class="item-img" alt="${item.name}">
+                                <div class="item-details">
+                                    <div class="item-title">${item.name}</div>
+                                    <div class="item-price">${item.price.toLocaleString()} د.ع</div>
+                                </div>
                                 <div class="quantity-control">
                                     <button class="q-btn" onclick="updateQty(${item.id}, -1)">-</button>
                                     <span class="q-num" id="qty-${item.id}">${cart[item.id] || 0}</span>
@@ -330,7 +377,7 @@
                         `;
                         container.appendChild(div);
                     });
-                } else { container.innerHTML = `<p style="color:#ccc; font-size:13px; text-align:center; padding:10px;">القسم فارغ حالياً.</p>`; }
+                } else { container.innerHTML = `<p style="color:#ccc; font-size:14px; text-align:center; padding:10px;">القسم فارغ حالياً.</p>`; }
             }
         }
 
@@ -367,13 +414,14 @@
         }
 
         function closeCaptainPanel() { document.getElementById('captain-modal').style.display = 'none'; resetCaptainForm(); }
-        function resetCaptainForm() { document.getElementById('edit-item-id').value = ""; document.getElementById('item-name').value = ""; document.getElementById('item-price').value = ""; }
+        function resetCaptainForm() { document.getElementById('edit-item-id').value = ""; document.getElementById('item-name').value = ""; document.getElementById('item-price').value = ""; document.getElementById('item-image-url').value = ""; }
 
         function setupEditItem(category, id) {
             let item = menuData[category].find(p => p.id === id);
             if(item) {
                 document.getElementById('edit-item-id').value = item.id; document.getElementById('item-category').value = category;
                 document.getElementById('item-name').value = item.name; document.getElementById('item-price').value = item.price;
+                document.getElementById('item-image-url').value = item.img ? item.img : "";
                 document.getElementById('captain-modal').style.display = 'flex';
             }
         }
@@ -381,11 +429,12 @@
         function saveCaptainChanges() {
             const id = document.getElementById('edit-item-id').value; const category = document.getElementById('item-category').value;
             const name = document.getElementById('item-name').value; const price = parseInt(document.getElementById('item-price').value);
+            const imgUrl = document.getElementById('item-image-url').value;
             if(!name || !price) { alert("يرجى ملأ جميع الحقول المطلوبة!"); return; }
             if(id) {
                 for (let cat in menuData) { menuData[cat] = menuData[cat].filter(p => p.id != id); }
-                menuData[category].push({ id: parseInt(id), name, price });
-            } else { menuData[category].push({ id: Date.now(), name, price }); }
+                menuData[category].push({ id: parseInt(id), name, price, img: imgUrl });
+            } else { menuData[category].push({ id: Date.now(), name, price, img: imgUrl }); }
             localStorage.setItem('royal_menu_data', JSON.stringify(menuData));
             alert("✅ تم الحفظ والتحديث بنجاح!"); closeCaptainPanel(); renderMenu(); updateCartTotal();
         }
@@ -400,7 +449,7 @@
             
             const inputField = document.getElementById('table-or-address');
             if (orderType === 'صالة') {
-                inputField.placeholder = "اكتب رقم طاولتك هنا (مثال: طاولة 7)";
+                inputField.placeholder = "اكتب رقم طاولتك هنا (مثال: طاولة 4)";
             } else {
                 inputField.placeholder = "اكتب عنوان التوصيل بالتفصيل + رقم الهاتف";
             }
@@ -418,7 +467,7 @@
             let itemsDetails = [], total = 0;
             for (let id in cart) { if(allItemsFlattened[id]) { itemsDetails.push(`• ${allItemsFlattened[id].name} (عدد ${cart[id]})`); total += cart[id] * allItemsFlattened[id].price; } }
             
-            let textMessage = `⚜️ *طلب جديد من المنيو الملكي الفرنسي* ⚜️\n\n`;
+            let textMessage = `⚜️ *طلب جديد من المنيو الملكي النيلي* ⚜️\n\n`;
             textMessage += `📌 *نوع الطلب:* ${orderType === 'صالة' ? 'داخل الصالة 🍽️' : 'توصيل / سفري 🚗'}\n`;
             textMessage += `📍 *تفاصيل الموقع:* ${infoDetail}\n\n`;
             textMessage += `📝 *الطلبات:*\n${itemsDetails.join('\n')}\n\n`;
